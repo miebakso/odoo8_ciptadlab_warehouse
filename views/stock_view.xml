@@ -1,8 +1,6 @@
 <openerp>
   <data>
-    <menuitem id="stock_simplified_menu_root" name="Stock" sequence="20"/>
-    <menuitem id="stock_simplified_menu_config" name="Configuration" sequence="1" parent="stock_simplified_menu_root"/>
-
+    <!-- Stock Simplified -->
     <record id="stock_simplified_form" model="ir.ui.view">
       <field name="name">stock_simplified.stock.picking.type.form.inherit</field>
       <field name="model">stock.picking.type</field>
@@ -23,14 +21,6 @@
         </tree>
       </field>
     </record>
-
-    <record id="stock_simplified_action" model="ir.actions.act_window">
-      <field name="name">Stock Simplified</field>
-      <field name="res_model">stock.picking.type</field>
-      <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
-    </record>
-
-    <menuitem id="stock_simplified_menu" sequence="2" parent="stock_simplified_menu_root" action="stock_simplified_action" />
+<!-- ======================================================================= -->
   </data>
 </openerp>
