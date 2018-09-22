@@ -9,6 +9,6 @@
 		'stock',
 	],
 	'data': [
-		'views/stock_simplified.xml',
+		'views/stock_view.xml',
 	]
 }
