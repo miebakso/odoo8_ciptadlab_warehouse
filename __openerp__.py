@@ -5,9 +5,10 @@
 		'base_setup',
 		'product',
 		'account',
-		'base'
+		'base',
+		'stock',
 	],
 	'data': [
-		'views/franchisee_view.xml',
+		'views/stock_simplified.xml',
 	]
 }
