@@ -17,14 +17,41 @@
 <!-- STOCK SIMPLIFIED FORM ========================================================= -->
 
 		<record id="stock_picking_simplified_form" model="ir.ui.view">
-			<field name="name">Stock Siplified Form</field>
+			<field name="name">stock.picking.simplified.form</field>
 			<field name="model">stock.picking</field>
 			<field name="arch" type="xml">
 				<form>
-					<field name="picking_type_id" />
-					<field name="state" invisible="1"/>
+					<group>
+						<field name="state" invisible="1" />
+						<field name="picking_type_id" />
+						<field name="partner_id" />
+						<field name="combined_date" />
+					</group>
+					<group string="Lines">
+						<field name="move_lines" nolabel="1">
+							<tree editable="bottom">
+								<field name="state" invisible="1" />
+								<field name="product_id" />
+								<field name="product_qty" />
+								<field name="product_uom" />
+							</tree>
+						</field>
+					</group>
+					<footer>
+						<button name="write" type="object" string="Save" class="oe_highlight" />
+						or
+						<button name="cancel" string="Cancel" special="cancel" class="oe_link" />
+					</footer>
 				</form>
 			</field>
+		</record>
+
+		<record id="stock_picking_simplified" model="ir.actions.act_window">
+			<field name="name">Simplified Stock Input</field>
+			<field name="res_model">stock.picking</field>
+			<field name="view_type">form</field>
+			<field name="target">new</field>
+			<field name="view_mode">form</field>
 		</record>
 
 		<record id="stock_simplified_action_form" model="ir.actions.act_window.view">
@@ -41,14 +68,6 @@
 				<tree>
 				</tree>
 			</field>
-		</record>
-
-		<record id="stock_picking_simplified" model="ir.actions.act_window">
-			<field name="name">Simplified Stock Input</field>
-			<field name="res_model">stock.picking</field>
-			<field name="view_type">form</field>
-			<field name="target">new</field>
-			<field name="view_mode">form</field>
 		</record>
 
 		<menuitem id="menu_stock_simplified" sequence="3"  parent="stock.menu_stock_warehouse_mgmt" action="stock_picking_simplified" />

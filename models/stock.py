@@ -10,3 +10,5 @@ class stock_picking_type(models.Model):
 class stock_picking(models.Model):
 
     _inherit = 'stock.picking'
+
+    combined_date = fields.Date('Date', required=True)
