@@ -1,56 +1,57 @@
 <openerp>
 	<data>
-	<!-- Stock Simplified -->
-	<record id="stock_simplified_form" model="ir.ui.view">
-		<field name="name">stock_simplified.stock.picking.type.form.inherit</field>
-		<field name="model">stock.picking.type</field>
-		<field name="inherit_id" ref="stock.view_picking_type_form"/>
-		<field name="arch" type="xml">
-			<xpath expr="//field[@name='return_picking_type_id']" position="after">
-				<field name="is_direct_transfer" />
-			</xpath>
-		</field>
-	</record>
 
-	<record id="stock_simplified_tree" model="ir.ui.view">
-		<field name="name">stock_simplified.stock.picking.type.tree</field>
-		<field name="model">stock.picking.type</field>
-		<field name="view_id" ref="stock_simplified_form"/>
-		<field name="arch" type="xml">
-			<tree>
-			</tree>
-		</field>
-	</record>
-<!-- ======================================================================= -->
-	
-	<menuitem id="menu_stock_simplified" sequence="3"  parent="stock.menu_stock_warehouse_mgmt" action="stock_picking_simplified" />
+<!-- STOCK PICKING TYPE ============================================================ -->
 
-	<record id="stock_picking_simplified" model="ir.actions.act_window">
-		<field name="name">Simplified Stock Input</field>
-		<field name="res_model">stock.picking</field>
-		<field name="view_type">form</field>
-		<field name="target">new</field>
-		<field name="view_mode">form</field>
-	</record>
+		<record id="stock_simplified_form" model="ir.ui.view">
+			<field name="name">stock_simplified.stock.picking.type.form.inherit</field>
+			<field name="model">stock.picking.type</field>
+			<field name="inherit_id" ref="stock.view_picking_type_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='return_picking_type_id']" position="after">
+					<field name="is_direct_transfer" />
+				</xpath>
+			</field>
+		</record>
 
-	<record id="stock_simplified_action_form" model="ir.actions.act_window.view">
-		<field name="view_mode">form</field>
-		<field name="view_id" ref="stock_picking_simplified_form" />
-		<field name="act_window_id" ref="stock_picking_simplified" />
-	</record>
+<!-- STOCK SIMPLIFIED FORM ========================================================= -->
 
-	<record id="stock_picking_simplified_form" model="ir.ui.view">
-		<field name="name">Stock Siplified Form</field>
-		<field name="model">stock.picking</field>
-		<field name="arch" type="xml">
-			<form>
+		<record id="stock_picking_simplified_form" model="ir.ui.view">
+			<field name="name">Stock Siplified Form</field>
+			<field name="model">stock.picking</field>
+			<field name="arch" type="xml">
+				<form>
+					<field name="picking_type_id" />
+					<field name="state" invisible="1"/>
+				</form>
+			</field>
+		</record>
 
-				<field name="picking_type_id" />
-				<field name="state" invisible="1"/>
-			</form>
-		</field>
-	</record>
+		<record id="stock_simplified_action_form" model="ir.actions.act_window.view">
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="stock_picking_simplified_form" />
+			<field name="act_window_id" ref="stock_picking_simplified" />
+		</record>
 
+		<record id="stock_simplified_tree" model="ir.ui.view">
+			<field name="name">stock_simplified.stock.picking.type.tree</field>
+			<field name="model">stock.picking.type</field>
+			<field name="view_id" ref="stock_simplified_form"/>
+			<field name="arch" type="xml">
+				<tree>
+				</tree>
+			</field>
+		</record>
+
+		<record id="stock_picking_simplified" model="ir.actions.act_window">
+			<field name="name">Simplified Stock Input</field>
+			<field name="res_model">stock.picking</field>
+			<field name="view_type">form</field>
+			<field name="target">new</field>
+			<field name="view_mode">form</field>
+		</record>
+
+		<menuitem id="menu_stock_simplified" sequence="3"  parent="stock.menu_stock_warehouse_mgmt" action="stock_picking_simplified" />
 
 	</data>
 </openerp>
