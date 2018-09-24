@@ -23,7 +23,7 @@
 				<form>
 					<group>
 						<field name="state" invisible="1" />
-						<field name="picking_type_id" domain="[('is_direct_transfer', '=', True)]" />
+						<field name="picking_type_id" />
 						<field name="partner_id" />
 						<field name="combined_date" />
 					</group>
