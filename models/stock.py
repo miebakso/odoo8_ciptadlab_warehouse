@@ -26,7 +26,14 @@ class stock_picking(models.Model):
             line[2]['location_dest_id'] = optype_locdest
             line[2]['name'] = product.partner_ref
 
-        vals['date'] = vals['min_date'] = vals['combined_date']
+        if optype.is_direct_transfer == True:
+            vals['date'] = vals['min_date'] = vals['combined_date']
 
-        print(vals)
-        return super(stock_picking, self).create(vals)
+        inst = super(stock_picking, self).create(vals)
+
+        if optype.is_direct_transfer == True:
+            inst.action_confirm()
+            inst.force_assign() #inst.action_assign()
+            inst.do_transfer()
+
+        return inst
