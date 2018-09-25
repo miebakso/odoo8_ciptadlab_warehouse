@@ -17,26 +17,32 @@
 <!-- STOCK SIMPLIFIED FORM ========================================================= -->
 
 		<record id="stock_picking_simplified_form" model="ir.ui.view">
-			<field name="name">Stock Simplified Form</field>
+			<field name="name">stock.picking.simplified.form</field>
 			<field name="model">stock.picking</field>
 			<field name="arch" type="xml">
 				<form>
-					<field name="picking_type_id" />
-					<field name="partner_id" />
-					<field name="date" />
-					<field name="state" invisible="1"/>
-					<button name="create" string="Confirm" class="oe_highlight"/>
+					<group>
+						<field name="state" invisible="1" />
+						<field name="picking_type_id" />
+						<field name="partner_id" />
+						<field name="combined_date" />
+					</group>
+					<group string="Lines">
+						<field name="move_lines" nolabel="1">
+							<tree editable="bottom">
+								<field name="state" invisible="1" />
+								<field name="product_id" />
+								<field name="product_uom_qty" />
+								<field name="product_uom" />
+							</tree>
+						</field>
+					</group>
+					<footer>
+						<button name="write" type="object" string="Save" class="oe_highlight" />
+						or
+						<button name="cancel" string="Cancel" special="cancel" class="oe_link" />
+					</footer>
 				</form>
-			</field>
-		</record>
-
-		<record id="stock_simplified_tree" model="ir.ui.view">
-			<field name="name">stock_simplified.stock.picking.type.tree</field>
-			<field name="model">stock.picking.type</field>
-			<field name="view_id" ref="stock_simplified_form"/>
-			<field name="arch" type="xml">
-				<tree>
-				</tree>
 			</field>
 		</record>
 
@@ -52,6 +58,16 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="stock_picking_simplified_form" />
 			<field name="act_window_id" ref="stock_picking_simplified" />
+		</record>
+
+		<record id="stock_simplified_tree" model="ir.ui.view">
+			<field name="name">stock_simplified.stock.picking.type.tree</field>
+			<field name="model">stock.picking.type</field>
+			<field name="view_id" ref="stock_simplified_form"/>
+			<field name="arch" type="xml">
+				<tree>
+				</tree>
+			</field>
 		</record>
 
 		<menuitem id="menu_stock_simplified" sequence="3"  parent="stock.menu_stock_warehouse_mgmt" action="stock_picking_simplified" />
