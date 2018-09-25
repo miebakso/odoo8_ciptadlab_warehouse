@@ -14,6 +14,8 @@ class stock_picking(models.Model):
 
     combined_date = fields.Datetime('Date', required=True, default=datetime.today())
 
+    temp_is_direct_transfer = fields.Boolean('temp_is_direct_transfer', compute="_compute_temp_is_direct_transfer")
+
     @api.model
     def create(self, vals):
         optype = self.env['stock.picking.type'].browse(vals['picking_type_id'])
@@ -37,3 +39,7 @@ class stock_picking(models.Model):
             inst.do_transfer()
 
         return inst
+
+    @api.depends('picking_type_id')
+    def _compute_temp_is_direct_transfer(self):
+        self.temp_is_direct_transfer = self.picking_type_id.is_direct_transfer
