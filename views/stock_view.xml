@@ -19,6 +19,11 @@
 		<record id="stock_picking_simplified_form" model="ir.ui.view">
 			<field name="name">stock.picking.simplified.form</field>
 			<field name="model">stock.picking</field>
+			<field name="context">
+				{
+					'picking_type_id': context.get('picking_type_id', False),
+				}
+			</field>
 			<field name="arch" type="xml">
 				<form>
 					<group>
@@ -71,6 +76,31 @@
 		</record>
 
 		<menuitem id="menu_stock_simplified" sequence="3"  parent="stock.menu_stock_warehouse_mgmt" action="stock_picking_simplified" />
+
+<!-- STOCK PICKING TYPE KANBAN ===================================================== -->
+
+		<record id="stock_simplified_type_kanban" model="ir.ui.view">
+			<field name="name">stock.simplified.type.kanban</field>
+			<field name="model">stock.picking.type</field>
+			<field name="inherit_id" ref="stock.stock_picking_type_kanban" />
+			<field name="arch" type="xml">
+				<data>
+					<xpath expr="/kanban" position="inside">
+						<field name="id" invisible="1" />
+					</xpath>
+					<xpath expr="//div[@class='oe_items_list oe_kanban_ellipsis']" position="inside">
+						<div>
+							<button	name="%(stock_picking_simplified)d"
+									type="action"
+									class="oe_highlight"
+									context="{'picking_type_id': id}">
+								Input Picking
+							</button>
+						</div>
+					</xpath>
+				</data>
+			</field>
+		</record>
 
 	</data>
 </openerp>
