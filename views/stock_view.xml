@@ -29,10 +29,13 @@
 	                    <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done"/>
 	                </header>
 					<group>
+						<field name="temp_is_direct_transfer" invisible="1" />
 						<field name="state" invisible="1" />
 						<field name="picking_type_id" />
 						<field name="partner_id" />
-						<field name="combined_date" />
+						<field name="combined_date" attrs="{'invisible':[('temp_is_direct_transfer','=',False)]}" />
+						<field name="date_done" attrs="{'invisible':[('temp_is_direct_transfer','=',True)]}" />
+						<field name="min_date" attrs="{'invisible':[('temp_is_direct_transfer','=',True)]}" />
 					</group>
 					<group string="Lines">
 						<field name="move_lines" nolabel="1">
@@ -77,14 +80,13 @@
 			<field name="inherit_id" ref="stock.stock_picking_type_kanban" />
 			<field name="arch" type="xml">
 				<data>
-					<xpath expr="/kanban" position="inside">
-						<field name="id" invisible="1" />
-					</xpath>
 					<xpath expr="//div[@class='oe_items_list oe_kanban_ellipsis']" position="inside">
 						<div>
+							<field name="id" invisible="1" />
 							<button	name="default_form"
 									type="object"
-									class="oe_highlight">
+									class="oe_highlight" 
+									context="{'active_id' : id}">
 								Input Picking
 							</button>
 						</div>
