@@ -60,3 +60,6 @@ class stock_picking(models.Model):
 	def _compute_temp_is_direct_transfer(self):
 		self.temp_is_direct_transfer = self.picking_type_id.is_direct_transfer
 
+
+		
+
