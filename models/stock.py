@@ -8,11 +8,28 @@ class stock_picking_type(models.Model):
 
     is_direct_transfer = fields.Boolean('Direct Transfer ?', default=False)
 
+    @api.multi
+    def default_form(self, context = None):
+        stock_picking_form = self.env.ref('stock_simplified.stock_picking_simplified_form', False)
+        active_id = context.get('id', None)
+        for keys,values in context.items():
+            print(keys+", "+values)
+        print(active_id)
+        return {
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'stock.picking',
+            'views': [[stock_picking_form.id, 'form']],
+            'type': 'ir.actions.act_window',
+            'target': 'new'
+        }
+
+
 class stock_picking(models.Model):
 
     _inherit = 'stock.picking'
-    combined_date = fields.Datetime('Date', required=True, default=datetime.today())
 
+    combined_date = fields.Datetime('Date', required=True, default=datetime.today())
     temp_is_direct_transfer = fields.Boolean('temp_is_direct_transfer', compute="_compute_temp_is_direct_transfer")
 
     @api.model
