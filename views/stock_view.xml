@@ -31,7 +31,7 @@
 					<group>
 						<field name="temp_is_direct_transfer" invisible="1" />
 						<field name="state" invisible="1" />
-						<field name="picking_type_id" />
+						<field name="picking_type_id"/>
 						<field name="partner_id" />
 						<field name="combined_date" attrs="{'invisible':[('temp_is_direct_transfer','=',False)]}" />
 						<field name="date_done" attrs="{'invisible':[('temp_is_direct_transfer','=',True)]}" />
@@ -62,7 +62,12 @@
 			<field name="view_type">form</field>
 			<field name="target">new</field>
 			<field name="view_mode">form</field>
+			<field name="context">{
+					'default_picking_type_id': context.get('active_id', False),
+				}
+			</field>
 		</record>
+
 
 		<record id="stock_simplified_action_form" model="ir.actions.act_window.view">
 			<field name="view_mode">form</field>
@@ -83,10 +88,10 @@
 					<xpath expr="//div[@class='oe_items_list oe_kanban_ellipsis']" position="inside">
 						<div>
 							<field name="id" invisible="1" />
-							<button	name="default_form"
-									type="object"
-									class="oe_highlight" 
-									context="{'active_id' : id}">
+							<button	name="%(stock_picking_simplified)d"
+									type="action"
+									class="oe_highlight"
+									>
 								Input Picking
 							</button>
 						</div>
