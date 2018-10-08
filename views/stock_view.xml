@@ -31,7 +31,8 @@
 					<group>
 						<field name="temp_is_direct_transfer" invisible="1" />
 						<field name="state" invisible="1" />
-						<field name="picking_type_id"/>
+						<field invisible="1" name="readonly_picking_type_id" />
+						<field name="picking_type_id" attrs="{'readonly':[('readonly_picking_type_id','!=',False)]}" />
 						<field name="partner_id" />
 						<field name="combined_date" attrs="{'invisible':[('temp_is_direct_transfer','=',False)]}" />
 						<field name="date_done" attrs="{'invisible':[('temp_is_direct_transfer','=',True)]}" />
@@ -64,6 +65,7 @@
 			<field name="view_mode">form</field>
 			<field name="context">{
 					'default_picking_type_id': context.get('active_id', False),
+					'default_readonly_picking_type_id': context.get('active_id',False),
 				}
 			</field>
 		</record>

@@ -32,10 +32,15 @@ class stock_picking(models.Model):
 
     combined_date = fields.Datetime('Date', required=True, default=datetime.today())
     temp_is_direct_transfer = fields.Boolean('temp_is_direct_transfer', compute="_compute_temp_is_direct_transfer")
+    readonly_picking_type_id = fields.Many2one('stock.picking.type')
 
     @api.model
     def create(self, vals):
-        optype = self.env['stock.picking.type'].browse(vals['picking_type_id'])
+        if vals['readonly_picking_type_id'] != False:
+            picking_type = vals['readonly_picking_type_id']
+        else:
+            picking_type = vals['picking_type_id']
+        optype = self.env['stock.picking.type'].browse(picking_type)
         optype_locsrc = optype.default_location_src_id.id
         optype_locdest = optype.default_location_dest_id.id
         product_env = self.env['product.product']
